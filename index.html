@@ -4,67 +4,62 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Victor Daniel Burbano Rincon. — Ingeniero Multimedia</title>
-  <meta name="description" content="Hoja de vida online de Victor Daniel Burbano Rincón — Ingeniero Multimedia." />
+  <title>Victor Daniel Burbano Rincón — Ingeniero Multimedia</title>
+  <meta name="description" content="CV online de Victor Daniel Burbano Rincón — Desarrollo Web, QA, Multimedia." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link href="assets/estilos.css" rel="stylesheet">
-
 </head>
 
 <body>
   <div class="wrap">
-    <header>
+    <header class="header">
       <div class="avatar" title="Foto">
-        <!-- Reemplaza img src por tu foto en ./assets/profile.jpg -->
         <img src="./assets/profile.jpg" alt="Foto de Victor Daniel Burbano" onerror="this.style.display='none'">
-        <span aria-hidden="true" style="font-weight:800">VD</span>
+        <span aria-hidden="true" class="avatar-fallback">VD</span>
       </div>
       <div>
         <div class="badge">Ingeniero Multimedia • Cali</div>
         <h1>Victor Daniel Burbano Rincón</h1>
-        <div class="subtitle">Desarrollo Web • QA • Diseño/Edición Multimedia</div>
-        <div class="actions" style="margin-top:12px">
+        <p class="subtitle">Desarrollo Web • QA • Diseño/Edición Multimedia</p>
+        <div class="actions">
           <a class="btn primary" href="./assets/cv.pdf" download>
-            <!-- ícono descarga -->
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="1.5"
                 stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             Descargar PDF
           </a>
           <a class="btn" href="#contacto">Contacto</a>
+          <a class="btn" href="#proyectos">Proyectos</a>
           <a class="btn" href="#experiencia">Experiencia</a>
         </div>
       </div>
     </header>
 
     <main class="grid">
-      <!-- Columna izquierda -->
+      <!-- PERFIL -->
       <section class="card" id="perfil">
         <h2>Perfil profesional</h2>
-        <p>Soy un Ingeniero Multimedia con experiencia en levantamiento de requerimientos y soporte; desarrollo web
-          (JavaScript, HTML, PHP, CSS, Java, Python) con frameworks como Angular, React, Vue, jQuery, Yii2 y Django;
-          gestión de bases de datos (Oracle y MySQL); automatización y pruebas (Selenium); y diseño/edición multimedia
-          (Adobe Photoshop, Illustrator, Premiere y After Effects).</p>
-        <div>
-          <span class="pill">JavaScript</span>
-          <span class="pill">PHP</span>
-          <span class="pill">Python</span>
-          <span class="pill">Java</span>
-          <span class="pill">Angular</span>
-          <span class="pill">React</span>
-          <span class="pill">Vue</span>
-          <span class="pill">Yii2</span>
-          <span class="pill">Django</span>
-          <span class="pill">Oracle</span>
-          <span class="pill">MySQL</span>
-          <span class="pill">Selenium</span>
-          <span class="pill">Adobe Suite</span>
+        <p>
+          Ingeniero Multimedia con foco en <strong>desarrollo web full-stack</strong>, QA y productos digitales.
+          Experiencia en <strong>levantamiento de requerimientos</strong>, diseño de modelos de datos y APIs, así como
+          <strong>automatización de pruebas</strong> y <strong>edición/diseño multimedia</strong>. Me muevo cómodo entre
+          <strong>JavaScript, PHP, Python y Java</strong> con frameworks como <strong>Angular, React, Vue, Yii2 y
+            Django</strong>.
+          En datos he trabajado con <strong>Oracle, MySQL, SQL Server</strong> y recientemente
+          <strong>PostgreSQL</strong>.
+        </p>
+        <div class="pills">
+          <span class="pill">JavaScript</span><span class="pill">PHP</span><span class="pill">Python</span>
+          <span class="pill">Java</span><span class="pill">Angular</span><span class="pill">React</span>
+          <span class="pill">Vue</span><span class="pill">Yii2</span><span class="pill">Django</span>
+          <span class="pill">Oracle</span><span class="pill">MySQL</span><span class="pill">PostgreSQL</span>
+          <span class="pill">SQL Server</span><span class="pill">Selenium</span><span class="pill">Adobe Suite</span>
         </div>
       </section>
 
+      <!-- CONTACTO -->
       <aside class="card" id="contacto">
         <h2>Contacto</h2>
         <div class="kvs">
@@ -74,7 +69,7 @@
           </div>
           <div class="kv">
             <div class="k">Teléfono</div>
-            <div><a href="tel:+573156793777">(+57) 315 679 3777</a></div>
+            <div><a href="tel:+573156793777">(+57) 315 679 3777</a></div>
           </div>
           <div class="kv">
             <div class="k">Ciudad</div>
@@ -97,6 +92,7 @@
         </div>
       </aside>
 
+      <!-- EDUCACIÓN -->
       <section class="card" id="educacion">
         <h2>Educación</h2>
         <ul class="list">
@@ -106,29 +102,36 @@
         </ul>
       </section>
 
+      <!-- SOFT SKILLS -->
       <aside class="card" id="habilidades">
         <h2>Habilidades blandas</h2>
         <ul class="list">
-          <li>Comunicación y transmisión de ideas</li>
+          <li>Comunicación clara y transmisión de ideas</li>
           <li>Trabajo en equipo y sentido de pertenencia</li>
-          <li>Investigación y apertura al aprendizaje</li>
+          <li>Investigación constante y aprendizaje continuo</li>
         </ul>
       </aside>
 
+      <!-- CERTIFICACIONES (con enlaces del PDF) -->
       <section class="card" id="certificaciones">
         <h2>Certificaciones y cursos</h2>
         <ul class="list">
-          <li>Google Ads — Next U (2020)</li>
-          <li>Soporte técnico de IT — Next U (2020)</li>
-          <li>Desarrollo Web — Next U (2020)</li>
-          <li>Diplomado Diseño y Construcción de Proyectos Multimedia — USB Cali (2020)</li>
+          <li>Google Ads — Next U (2020) · <a href="https://acortar.link/hOAvzR" target="_blank" rel="noopener">Ver
+              certificado</a></li>
+          <li>Soporte técnico de IT — Next U (2020) · <a href="https://acortar.link/OXK51R" target="_blank"
+              rel="noopener">Ver certificado</a></li>
+          <li>Desarrollo Web — Next U (2020) · <a href="https://acortar.link/zm6are" target="_blank" rel="noopener">Ver
+              certificado</a></li>
+          <li>Diplomado Diseño y Construcción de Proyectos Multimedia — USB Cali (2020) · <a
+              href="https://acortar.link/tGBiKX" target="_blank" rel="noopener">Ver certificado</a></li>
           <li>Formación en ambientes de aprendizaje — SENA (2021)</li>
           <li>Gerencia de Proyectos — Politécnico de Colombia (2023)</li>
           <li>Scrum Foundations Professional Certificate — CertiProf (2023)</li>
         </ul>
-        <!-- <p class="tiny">Incluye enlaces a credenciales en el repositorio si lo deseas.</p> -->
+        <!-- <p class="tiny">Si algún enlace no corresponde, dime cuál mapeo corregimos y lo ajusto en segundos.</p> -->
       </section>
 
+      <!-- EXPERIENCIA -->
       <section class="card" id="experiencia">
         <h2>Experiencia</h2>
         <div class="timeline">
@@ -141,10 +144,10 @@
           <div class="job">
             <div class="title">Movi Software SAS — Desarrollador Full Stack / Soporte</div>
             <div class="when">Jul 2022 – Oct 2023</div>
-            <div>Desarrollo Full Stack.</div>
+            <div>Desarrollo full-stack y soporte a usuarios.</div>
           </div>
           <div class="job">
-            <div class="title">Q‑Extreme / Aranda — Analista de Pruebas QA (Remoto)</div>
+            <div class="title">Q-Extreme / Aranda — Analista de Pruebas QA (Remoto)</div>
             <div class="when">Ene 2022 – Ene 2023</div>
             <div>Automatización con Selenium, diseño multimedia.</div>
           </div>
@@ -161,10 +164,26 @@
         </div>
       </section>
 
+      <!-- PROYECTOS (resumen rápido que se ve bien en GitHub Pages) -->
+      <section class="card" id="proyectos">
+        <h2>Proyectos destacados</h2>
+        <ul class="list">
+          <li><strong>Auditoría y traspasos (Yii2 + SQL)</strong>: tablero, flujos de conteo, validaciones y reportes;
+            migraciones entre <em>SQL Server</em> y <em>PostgreSQL</em>; conectores de impresión en red/compartidas.
+          </li>
+          <li><strong>Formularios y autenticación</strong>: restablecimiento de contraseña con notificaciones por
+            correo; hardening de seguridad y mejoras UX.</li>
+          <li><strong>Dashboards</strong>: KPIs de auditoría (productividad y errores por usuario), exportables y con
+            filtros por fecha y tienda.</li>
+          <li><strong>Automatización QA</strong>: pruebas E2E con Selenium y validación de reglas de negocio.</li>
+        </ul>
+      </section>
+
+      <!-- REFERENCIAS -->
       <aside class="card" id="referencias">
         <h2>Referencias</h2>
         <ul class="list">
-          <li><strong>Ana Cilia Rincón Beltrán</strong> — Instructora SENA. Tel: 315 852 6811.</li>
+          <li><strong>Ana Cilia Rincón Beltrán</strong> — Instructora SENA. Tel: 315 852 6811.</li>
           <li><strong>Luis Hernando Torres Osorio</strong> — HIMA Paul Hildebrandt GmbH. <a
               href="mailto:l.torres@hima.com">l.torres@hima.com</a></li>
         </ul>
@@ -172,8 +191,7 @@
     </main>
 
     <footer>
-      <p class="tiny">© <span id="y"></span> Victor Daniel Burbano Rincon.
-      </p>
+      <p class="tiny">© <span id="y"></span> Victor Daniel Burbano Rincón · Sitio CV minimal.</p>
     </footer>
   </div>
 
