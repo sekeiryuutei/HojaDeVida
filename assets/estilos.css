@@ -1,0 +1,260 @@
+ :root {
+     --bg: #0f172a;
+     /* slate-900 */
+     --card: #111827;
+     /* gray-900 */
+     --soft: #1f2937;
+     /* gray-800 */
+     --muted: #94a3b8;
+     /* slate-400 */
+     --txt: #e5e7eb;
+     /* gray-200 */
+     --brand: #38bdf8;
+     /* sky-400 */
+     --accent: #22c55e;
+     /* green-500 */
+ }
+
+ * {
+     box-sizing: border-box
+ }
+
+ html,
+ body {
+     font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+     background: var(--bg);
+     /* fondo sólido base para evitar banding */
+     color: var(--txt);
+     line-height: 1.6;
+     position: relative;
+     min-height: 100%;
+     overflow-x: hidden;
+ }
+
+ body {
+     font-family: Inter, system-ui, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+     background: radial-gradient(1200px 600px at 10% -10%, rgba(73, 199, 253, 0.15), transparent),
+         radial-gradient(1000px 500px at 110% -10%, rgba(34, 197, 94, .12), transparent),
+         var(--bg);
+     color: var(--txt);
+     line-height: 1.6;
+ }
+
+ a {
+     color: var(--brand);
+     text-decoration: none
+ }
+
+ a:hover {
+     opacity: .9;
+     text-decoration: underline
+ }
+
+ .wrap {
+     max-width: 1100px;
+     margin: 40px auto;
+     padding: 0 20px
+ }
+
+ header {
+     display: grid;
+     gap: 24px;
+     align-items: center;
+     grid-template-columns: 120px 1fr;
+     background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+     border: 1px solid rgba(255, 255, 255, .06);
+     border-radius: 24px;
+     padding: 24px;
+     box-shadow: 0 10px 30px rgba(0, 0, 0, .25);
+ }
+
+ .avatar {
+     width: 120px;
+     height: 120px;
+     border-radius: 50%;
+     overflow: hidden;
+     display: grid;
+     place-items: center;
+     background:
+         radial-gradient(60% 60% at 30% 30%, rgba(56, 189, 248, .45), transparent 60%),
+         radial-gradient(60% 60% at 70% 70%, rgba(34, 197, 94, .45), transparent 60%),
+         var(--soft);
+     border: 1px solid rgba(255, 255, 255, .08);
+ }
+
+ .avatar img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     display: block
+ }
+
+ h1 {
+     margin: 0;
+     font-size: clamp(26px, 3.3vw, 40px);
+     line-height: 1.15
+ }
+
+ .subtitle {
+     color: var(--muted);
+     font-weight: 600
+ }
+
+ .badge {
+     display: inline-flex;
+     gap: 8px;
+     align-items: center;
+     background: rgba(56, 189, 248, .08);
+     color: #e0f2fe;
+     border: 1px solid rgba(56, 189, 248, .35);
+     padding: 6px 10px;
+     border-radius: 999px;
+     font-size: 12px;
+     font-weight: 600
+ }
+
+ .actions {
+     display: flex;
+     gap: 12px;
+     flex-wrap: wrap
+ }
+
+ .btn {
+     display: inline-flex;
+     align-items: center;
+     gap: 10px;
+     padding: 10px 14px;
+     border-radius: 12px;
+     border: 1px solid rgba(255, 255, 255, .08);
+     background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+     color: var(--txt);
+     font-weight: 600;
+     transition: .2s transform ease;
+ }
+
+ .btn:hover {
+     transform: translateY(-2px)
+ }
+
+ .btn.primary {
+     background: linear-gradient(180deg, rgba(56, 189, 248, .25), rgba(56, 189, 248, .15));
+     border-color: rgba(56, 189, 248, .45)
+ }
+
+ .grid {
+     display: grid;
+     gap: 20px;
+     margin-top: 24px;
+     grid-template-columns: 1.1fr .9fr;
+ }
+
+ @media (max-width: 900px) {
+     .grid {
+         grid-template-columns: 1fr
+     }
+
+     header {
+         grid-template-columns: 100px 1fr
+     }
+
+     .avatar {
+         width: 100px;
+         height: 100px
+     }
+ }
+
+ .card {
+     background: linear-gradient(180deg, rgba(255, 255, 255, .03), rgba(255, 255, 255, .015));
+     border: 1px solid rgba(255, 255, 255, .08);
+     border-radius: 20px;
+     padding: 20px;
+     box-shadow: 0 10px 24px rgba(0, 0, 0, .18);
+ }
+
+ .card h2 {
+     margin: 0 0 10px;
+     font-size: 18px
+ }
+
+ .kvs {
+     display: grid;
+     gap: 6px
+ }
+
+ .kv {
+     display: flex;
+     gap: 10px
+ }
+
+ .kv .k {
+     min-width: 130px;
+     color: var(--muted)
+ }
+
+ .list {
+     display: grid;
+     gap: 14px;
+     padding-left: 18px
+ }
+
+ .list li {
+     margin: 0
+ }
+
+ .timeline {
+     display: grid;
+     gap: 14px
+ }
+
+ .job {
+     padding: 14px;
+     border-radius: 14px;
+     background: rgba(255, 255, 255, .02);
+     border: 1px solid rgba(255, 255, 255, .06)
+ }
+
+ .job .when {
+     color: var(--muted);
+     font-size: 13px
+ }
+
+ .job .title {
+     font-weight: 700
+ }
+
+ footer {
+     margin: 30px 0;
+     color: var(--muted);
+     text-align: center
+ }
+
+ .tiny {
+     font-size: 12px
+ }
+
+ .pill {
+     display: inline-block;
+     padding: 3px 8px;
+     border-radius: 999px;
+     border: 1px solid rgba(255, 255, 255, .08);
+     background: rgba(255, 255, 255, .03);
+     margin: 2px;
+     font-size: 12px
+ }
+
+ /* Capa difuminada de acentos con blur para eliminar cortes visibles */
+ body::before {
+     content: "";
+     position: fixed;
+     inset: -20% -10% -30% -10%;
+     /* se extiende fuera del viewport para degradar mejor */
+     background:
+         radial-gradient(40% 30% at 10% 0%, rgba(56, 189, 248, .30), transparent 60%),
+         radial-gradient(35% 28% at 100% 0%, rgba(34, 197, 94, .25), transparent 60%);
+     filter: blur(80px);
+     /* controla lo suave del difuminado */
+     opacity: .6;
+     z-index: -1;
+     pointer-events: none;
+     will-change: transform;
+ }
