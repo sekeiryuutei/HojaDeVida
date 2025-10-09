@@ -4,13 +4,17 @@
   if (!buttons.length) return;
 
   const forceDownload = async (url) => {
-    const res = await fetch(url, { cache: 'no-store' });
+    const res = await fetch(url, {
+      cache: 'no-store'
+    });
     if (!res.ok) throw new Error('No se encontró el archivo (' + res.status + ')');
     const blob = await res.blob();
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'Victor_Burbano_CV.pdf';
-    document.body.appendChild(a); a.click(); a.remove();
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   };
 
@@ -18,8 +22,11 @@
     btn.addEventListener('click', async (e) => {
       e.preventDefault();
       const url = btn.getAttribute('href') || './assets/cv.pdf';
-      try { await forceDownload(url); }
-      catch { window.open(url, '_blank'); }
+      try {
+        await forceDownload(url);
+      } catch {
+        window.open(url, '_blank');
+      }
     });
   });
 })();
@@ -28,7 +35,7 @@
 document.documentElement.style.scrollBehavior = 'smooth';
 
 // Scrollspy del menú móvil
-(function(){
+(function () {
   const links = [...document.querySelectorAll('.mnav-link[data-section]')];
   if (!links.length) return;
   const map = Object.fromEntries(links.map(a => [a.dataset.section, a]));
@@ -41,14 +48,28 @@ document.documentElement.style.scrollBehavior = 'smooth';
         map[id].classList.add('active');
       }
     });
-  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0.1 });
+  }, {
+    rootMargin: '-30% 0px -60% 0px',
+    threshold: 0.1
+  });
 
   ['perfil', 'proyectos', 'experiencia', 'contacto']
-    .forEach(id => { const el = document.getElementById(id); if (el) obs.observe(el); });
+  .forEach(id => {
+    const el = document.getElementById(id);
+    if (el) obs.observe(el);
+  });
 })();
 
 // Año dinámico
-(function(){
+(function () {
   const span = document.getElementById('y');
   if (span) span.textContent = new Date().getFullYear();
+  const span1 = document.getElementById('m');
+  if (span) {
+    const mes = new Date().toLocaleString('es-ES', {
+      month: 'long'
+    });
+    span1.textContent = mes.charAt(0).toUpperCase() + mes.slice(1);
+  }
+
 })();
