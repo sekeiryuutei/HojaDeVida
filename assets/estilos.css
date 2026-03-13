@@ -82,6 +82,11 @@ h1{margin:0; font-size: clamp(24px, 3.2vw, 40px); line-height:1.15}
   background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
   border:1px solid rgba(255,255,255,.08);
   border-radius:20px; padding:20px; box-shadow:0 10px 24px rgba(0,0,0,.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0,0,0,.25);
 }
 .card h2{margin:0 0 10px; font-size: clamp(17px, 1.6vw, 20px)}
 
@@ -108,7 +113,11 @@ footer{margin:30px 0; color:var(--muted); text-align:center}
 .pill{
   display:inline-block; padding:6px 10px; border-radius:999px;
   border:1px solid rgba(255,255,255,.08);
-  background:rgba(255,255,255,.03); font-size:12px
+  background:rgba(255,255,255,.03); font-size:12px;
+  transition: background 0.3s ease;
+}
+.pill:hover {
+  background: rgba(255,255,255,.08);
 }
 
 /* ---------- RESPONSIVE ---------- */
