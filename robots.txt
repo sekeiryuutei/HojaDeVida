@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://victorburbano.com/sitemap.xml</content>
+<parameter name="filePath">c:\Users\USUARIO\Documents\Victor\documentos\Hv\HojaDeVidaVictorBurbano\robots.txt
