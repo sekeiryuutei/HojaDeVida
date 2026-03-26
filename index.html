@@ -330,6 +330,41 @@
         </ul>
       </section>
 
+      <!-- CUBELEARN -->
+      <section class="card card--wide" id="cubelearn">
+        <h2 data-key="cubelearn-title">CUBELEARN — Augmented Reality Educational Game</h2>
+        <div class="cubelearn-meta" data-key="cubelearn-when">University Thesis Project — Universidad San Buenaventura Cali (2021)</div>
+        <div class="pills" style="margin-bottom:12px;">
+          <span class="pill">Unity</span><span class="pill">C#</span><span class="pill">Vuforia</span>
+          <span class="pill">Augmented Reality</span><span class="pill">Android</span><span class="pill">Game Design</span>
+        </div>
+        <p data-key="cubelearn-desc">
+          Educational mobile game designed to teach programming concepts to children through physical interaction. Players scan AR markers (Vuforia) with their device camera to trigger actions — characters on screen move accordingly. Each board presents a challenge: guide the fire truck to extinguish the fire by arranging markers in the correct sequence, applying concepts like <strong>ordered instructions and loops</strong>. Built with <strong>Unity and C#</strong>, compatible with Android 4.0+.
+        </p>
+        <div class="screenshots">
+          <img src="./assets/appTesis/inicio.png" alt="CubeLearn - Start screen" class="screenshot-img" loading="lazy">
+          <img src="./assets/appTesis/seleccionarNivel.png" alt="CubeLearn - Level selection" class="screenshot-img" loading="lazy">
+          <img src="./assets/appTesis/instrucciones1.png" alt="CubeLearn - Instructions" class="screenshot-img" loading="lazy">
+          <img src="./assets/appTesis/instrucciones2.png" alt="CubeLearn - Instructions 2" class="screenshot-img" loading="lazy">
+          <img src="./assets/appTesis/Nivel1.png" alt="CubeLearn - Level 1" class="screenshot-img" loading="lazy">
+        </div>
+        <div class="cubelearn-tip">
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" style="flex-shrink:0;margin-top:2px">
+            <path fill="currentColor" d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2Zm1 15h-2v-6h2Zm0-8h-2V7h2Z"/>
+          </svg>
+          <span data-key="cubelearn-tip">Want to try it? Install the APK and point your camera at the markers shown in image 3 (Instructions): right, left, up, down — or the loop marker to repeat a sequence.</span>
+        </div>
+        <div class="cubelearn-actions">
+          <a href="./assets/appTesis/CubeLearn.apk" class="btn primary" download>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            </svg>
+            <span data-key="cubelearn-download">Download APK (Android 4+)</span>
+          </a>
+        </div>
+      </section>
+
       <!-- REFERENCIAS -->
       <aside class="card" id="referencias">
         <h2 data-key="references-title">References</h2>
@@ -344,6 +379,14 @@
     <footer>
       <p class="tiny" data-key="footer">© <span id="y"></span> Victor Daniel Burbano Rincón · Minimal CV site.</p>
     </footer>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+    <button class="lightbox-arrow lightbox-prev" id="lightbox-prev" aria-label="Previous">&#8249;</button>
+    <img id="lightbox-img" src="" alt="" class="lightbox-img">
+    <button class="lightbox-arrow lightbox-next" id="lightbox-next" aria-label="Next">&#8250;</button>
   </div>
 
   <!-- Menú móvil sticky -->

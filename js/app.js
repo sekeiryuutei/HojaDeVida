@@ -103,6 +103,11 @@ const translations = {
     "project-4": "<strong>Security Management Platform</strong>: Guard shift scheduling, assignment, and auditing; incident logging with traceability; operational reports for supervisors.",
     "project-5": "<strong>Gestión de Taxis – Financial Operations Platform</strong>: Driver accounts, collections, and payments; savings management and daily reconciliation processes.",
     "project-6": "<strong>Zisko – Educational SaaS Platform</strong>: Backend with Django and DRF, multi-tenant architecture, Angular frontend with JWT, Docker containers.",
+    "cubelearn-title": "CUBELEARN — Augmented Reality Educational Game",
+    "cubelearn-when": "University Thesis Project — Universidad San Buenaventura Cali (2021)",
+    "cubelearn-desc": "Educational mobile game designed to teach programming concepts to children through physical interaction. Players scan AR markers (Vuforia) with their device camera to trigger actions — characters on screen move accordingly. Each board presents a challenge: guide the fire truck to extinguish the fire by arranging markers in the correct sequence, applying concepts like <strong>ordered instructions and loops</strong>. Built with <strong>Unity and C#</strong>, compatible with Android 4.0+.",
+    "cubelearn-download": "Download APK (Android 4+)",
+    "cubelearn-tip": "Want to try it? Install the APK and point your camera at the markers shown in image 3 (Instructions): right, left, up, down — or the loop marker to repeat a sequence.",
     "references-title": "References",
     "ref-1": "<strong>Ana Cilia Rincón Beltrán</strong> — SENA Instructor. Tel: 315 852 6811.",
     "ref-2": "<strong>Luis Hernando Torres Osorio</strong> — HIMA Paul Hildebrandt GmbH. <a href=\"mailto:l.torres@hima.com\">l.torres@hima.com</a>",
@@ -181,6 +186,11 @@ const translations = {
     "project-4": "<strong>Plataforma de Gestión de Seguridad</strong>: Programación de turnos de guardias, asignación y auditoría; registro de incidentes con trazabilidad; reportes operativos para supervisores.",
     "project-5": "<strong>Gestión de Taxis – Plataforma de Operaciones Financieras</strong>: Cuentas de conductores, cobros y pagos; gestión de ahorros y reconciliación diaria.",
     "project-6": "<strong>Zisko – Plataforma SaaS Educativa</strong>: Backend con Django y DRF, arquitectura multi-tenant, frontend Angular con JWT, contenedores Docker.",
+    "cubelearn-title": "CUBELEARN — Juego Educativo con Realidad Aumentada",
+    "cubelearn-when": "Proyecto de Grado — Universidad San Buenaventura Cali (2021)",
+    "cubelearn-desc": "Juego móvil educativo diseñado para enseñar conceptos de programación a niños mediante interacción física. Los jugadores escanean marcadores de RA (Vuforia) con la cámara del dispositivo para disparar acciones — los personajes en pantalla se mueven en consecuencia. Cada tablero plantea un reto: guiar el camión de bomberos hasta el incendio ordenando los marcadores en la secuencia correcta, aplicando conceptos como <strong>instrucciones ordenadas y ciclos</strong>. Desarrollado con <strong>Unity y C#</strong>, compatible con Android 4.0+.",
+    "cubelearn-download": "Descargar APK (Android 4+)",
+    "cubelearn-tip": "¿Quieres probarlo? Instala el APK y apunta la cámara a los marcadores que aparecen en la imagen 3 (Instrucciones): derecha, izquierda, arriba, abajo — o el marcador de ciclo para repetir una secuencia.",
     "references-title": "Referencias",
     "ref-1": "<strong>Ana Cilia Rincón Beltrán</strong> — Instructora SENA. Tel: 315 852 6811.",
     "ref-2": "<strong>Luis Hernando Torres Osorio</strong> — HIMA Paul Hildebrandt GmbH. <a href=\"mailto:l.torres@hima.com\">l.torres@hima.com</a>",
@@ -241,6 +251,58 @@ setLanguage('en');
 
   // Observe sections
   document.querySelectorAll('section[id], aside[id]').forEach(section => obs.observe(section));
+})();
+
+// Lightbox
+(function () {
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbClose = document.getElementById('lightbox-close');
+  const lbPrev = document.getElementById('lightbox-prev');
+  const lbNext = document.getElementById('lightbox-next');
+
+  let images = [];
+  let current = 0;
+
+  function updateArrows() {
+    lbPrev.disabled = current === 0;
+    lbNext.disabled = current === images.length - 1;
+  }
+
+  function show(index) {
+    current = index;
+    lbImg.src = images[current].src;
+    lbImg.alt = images[current].alt || '';
+    updateArrows();
+  }
+
+  function open(index) {
+    show(index);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  images = [...document.querySelectorAll('.screenshot-img')];
+  images.forEach((img, i) => {
+    img.addEventListener('click', () => open(i));
+  });
+
+  lbPrev.addEventListener('click', e => { e.stopPropagation(); if (current > 0) show(current - 1); });
+  lbNext.addEventListener('click', e => { e.stopPropagation(); if (current < images.length - 1) show(current + 1); });
+  lbClose.addEventListener('click', close);
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft' && current > 0) show(current - 1);
+    if (e.key === 'ArrowRight' && current < images.length - 1) show(current + 1);
+  });
 })();
 
 // Año dinámico
