@@ -1,0 +1,135 @@
+# Victor Daniel Burbano Rincón — Full profile (plain text)
+
+Full-Stack Developer and Multimedia Engineer based in Cali, Colombia (UTC−5).
+5+ years of experience building enterprise systems, SaaS products and web applications.
+Founder of CodeVam (codevam.dev) and creator of VamCore.
+Open to full-time, contract and freelance opportunities in Colombia or remotely.
+
+- English portfolio: https://victorburbano.com/
+- Spanish portfolio: https://victorburbano.com/es/
+- English CV (PDF): https://victorburbano.com/assets/cv-en.pdf
+- Spanish CV (PDF): https://victorburbano.com/assets/cv.pdf
+- LinkedIn: https://www.linkedin.com/in/victor-daniel-burbano-rincon-93b882168
+- GitHub: https://github.com/sekeiryuutei
+- Studio: https://codevam.dev/
+- Email: victordburbano@gmail.com
+- Phone: +57 315 679 3777
+
+## Professional summary
+
+Full-Stack Developer and Multimedia Engineer with 5+ years of experience across logistics, energy, fintech, education and SaaS. Works end-to-end: requirements, relational data modeling, backend APIs, frontend interfaces, automated tests, containers and deployment. Strong in Java 21 / Spring Boot, Angular / React, PHP / Yii2, Node.js, PostgreSQL / SQL Server and automated testing. Comfortable owning a module or a complete product, and documents and tests what he builds.
+
+## Core skills
+
+- Backend: Java 21, Spring Boot, Spring Security, JPA/Hibernate, Node.js/Express, PHP/Yii2, Python/Django, NestJS.
+- Frontend: Angular 18, React, TypeScript, Ionic, PWA, Tailwind CSS, Bootstrap.
+- Data: PostgreSQL, SQL Server, MySQL/MariaDB, Redis, MongoDB, Flyway, TypeORM, Sequelize.
+- DevOps and QA: Docker, Nginx, Git, GitHub Actions, GitLab CI, Linux, JUnit 5, Mockito, Selenium, Codeception, Playwright.
+- Integrations: DIAN / UBL 2.1, XAdES-EPES, SIESA ERP, Wompi, Stripe, WhatsApp Cloud API, JWT / OAuth2, REST APIs.
+- Architecture: hexagonal architecture, domain-driven design, modular monoliths, multi-tenant SaaS.
+- Other: Unity, C#, Vuforia, Photoshop, Premiere, After Effects.
+
+## Experience
+
+### CodeVam — Founder & Full-Stack Developer
+2026 – present · Software studio · codevam.dev · Cali, Colombia · Remote
+
+- Founded and runs CodeVam, a software studio delivering SaaS products, custom platforms and client websites end-to-end: discovery, architecture, implementation, testing and deployment.
+- Built VamCore, CodeVam's modular enterprise platform (Java 21 / Spring Boot, Angular 18, PostgreSQL, Docker): VamStock inventory, VamAsset fixed assets and VamTrack delivery logistics on shared identity, multi-tenant organization, audit, files, notifications and reporting modules.
+- Built CodeVam Fiscal (DIAN electronic invoicing; 326 tests, 92.25% instruction coverage), VamPOS (offline-first POS; 23 migrations), Vecindad (multi-tenant property management; 83 tests) and FruverCopilot (AI-assisted WhatsApp ordering; 39 tests).
+- Delivered client platforms and websites for dental, tourism, wellness and security businesses.
+
+### IAS Software — Software Developer
+Apr 2026 – Jun 2026 · Fixed-term engagement
+
+- Contributed to internal business software development during a fixed-term contract.
+
+### Grupo Mayorista Herpo — Development Analyst / Full-Stack Developer
+Sep 2024 – 2026 · Wholesale distribution · Cali, Colombia
+
+- Worked on GRUMALOG, the company's WMS (PHP/Yii2, SQL Server, SIESA ERP): inbound, counting, transfers, cross-docking, outbound, store receiving and returns.
+- Automated physical-vs-ERP inventory reconciliation; implemented multi-barcode SKU and EAN13 models; optimized SQL for large operational datasets.
+- Partnered with operations and business teams on requirements, functional evolution and production support for eight WMS modules.
+
+### GCS Soluciones — Full-Stack Developer / Systems Analyst
+Feb 2024 – Sep 2024 · Ongoing collaboration 2026 · Software services · Cali, Colombia
+
+- Built GRUMALOG from analysis to production for Grupo Mayorista Herpo: data model, Yii2 backend, SQL Server, SIESA integration and go-live support.
+- Contributed to a taxi financial platform, the Zisko multi-tenant educational SaaS (Django/DRF, Angular, JWT, Docker) and Misión Empleo for retired soldiers.
+- Ongoing collaboration (2026): maintenance, database support and module work on Coopcarvajal's Elecciones electoral platform and Entregax delivery-operations system (Yii2, MariaDB/MySQL) — extending pre-existing codebases, not original authorship.
+- The GRUMALOG engagement led to a direct hire by Herpo.
+
+### Movi Software — Full-Stack Developer
+Jul 2022 – Oct 2023 · Energy sector · Cali, Colombia
+
+- Frontend contribution to Celsia One (Angular/Ionic + .NET): login, profile, billing, payments, dashboards and damage reports.
+- Supported SAGES / ISA (ASP.NET MVC, SQL Server): bug fixing, incident resolution, data synchronization and QA documentation.
+
+### Q-Extreme / Aranda — QA Analyst (Remote)
+Jan 2022 – Jan 2023 · Aranda ADM / ASMS / SONDA
+
+- Designed test plans, acceptance and regression cases, BPMN process maps and MQTT/event tests for Aranda ADM.
+- Produced 15+ QA artifacts, findings reports, release notes and technical documentation.
+
+### Qubilo — Software Developer / Multimedia Engineer
+Mar 2021 – Jun 2021 · Software company · Cali, Colombia
+
+- Contributed to Dubs2 (Django/DRF, 16 modules): calls, cases, benefits, interviews and geolocation features.
+- Contributed to the Afiansa Angular frontend and built a Django demo with automated tests.
+
+### Fundación Social y Deportiva Rubiery Buitrago Ocampo — Multimedia Teacher
+Mar 2018 – Dec 2019 · Education · Cali, Colombia
+
+- Taught multimedia and digital tools to young people, combining design, video and interactive content.
+
+## Selected projects
+
+- VamCore — CodeVam's modular enterprise platform: Java 21 / Spring Boot modular monolith, Angular 18, PostgreSQL, Flyway, Docker, hexagonal architecture, DDD and domain events. Powers three products: VamStock (inventory), VamAsset (fixed assets) and VamTrack (delivery logistics). Shared identity, multi-tenant organization, audit, files, notifications and reporting modules. 3 products, 15 REST controllers, 9 migrations.
+- CodeVam Fiscal — DIAN electronic invoicing platform for Colombia: Java 21 / Spring Boot 3.3.5, Angular 22 PWA, PostgreSQL 16, Flyway, XAdES-EPES digital signatures and UBL 2.1 documents; batch processing, per-tenant API keys, wallet, document management and admin portal. 326 tests, 92.25% instruction coverage, 10 portal modules, 15 migrations.
+- VamPOS — Multi-tenant, offline-first POS for Colombian stores: Angular 18 + Ionic 8 PWA, Spring Boot, PostgreSQL, Redis, DIAN-ready documents and B2B API. 23 migrations.
+- Vecindad — Multi-tenant property management: Spring Boot, PostgreSQL schema-per-tenant, Redis, Flyway, JWT, Wompi, reservations, PQRS and visitor management. 83 unit tests and 20 smoke sections.
+- FruverCopilot — AI-assisted WhatsApp ordering platform for a fruit-and-vegetable business. 39 tests.
+- GRUMALOG — Warehouse management system for wholesale distribution: PHP/Yii2, SQL Server, SIESA ERP integration, EAN13 generation and multi-barcode SKU models. 8 operational modules: inbound, counting, transfers, cross-docking, outbound, store receiving and returns.
+- SIGE — Energization management platform for an energy company: 7 applications to plan, track and weather-monitor energization schedules.
+- GES — Security operations and quadrants system: 9 controllers and 67 views.
+- Celsia One / SAGES-ISA — Energy sector platforms: frontend contribution to Celsia One and support for SAGES/ISA (74 controllers, 151 views).
+- Coopcarvajal — Elecciones & Entregax — Technical continuity for two pre-existing Yii2 systems used by Coopcarvajal: Elecciones (electoral platform, MariaDB) and Entregax (delivery operations and driver settlements, MySQL 8). Role: CI/CD pipeline, Codeception suite, coverage setup, database support, module adjustments and the 2027 assembly technical plan. Not original authorship; 10/10 tests.
+- Dr. Jiménez — Dental platform: 3 portals, 10 tables and 9 migrations.
+- CubeLearn — Thesis project (2021): augmented-reality educational game to teach programming logic to teenagers using Unity, C#, Vuforia and physical AR markers.
+
+## Education
+
+- Multimedia Engineering — Universidad de San Buenaventura Cali (2021). Thesis: CubeLearn, an augmented-reality educational game built with Unity, C# and Vuforia; validated with 16 participants (81% found it fun; 62.5% rated it "very easy").
+- Industrial Electronic Maintenance — SENA (2015).
+- Technical Baccalaureate in Electronics — Institución Antonio José Camacho (2015).
+
+## Certifications
+
+- Scrum Foundations Professional Certificate — CertiProf (2023).
+- Project Management — Politécnico de Colombia (2023).
+- Web Development — Next U (2020).
+- IT Support — Next U (2020).
+- Google Ads — Next U (2020).
+- Diploma in Design and Construction of Multimedia Projects — Universidad de San Buenaventura Cali (2020).
+- Software Testing Annual Report 2025 — Contribution Certificate, AICS (2025).
+
+## Languages
+
+- Spanish (native).
+- English (professional working proficiency).
+
+## Availability and contact
+
+- Location: Cali, Colombia (UTC−5).
+- Availability: full-time, contract and freelance; remote or hybrid.
+- Email: victordburbano@gmail.com
+- Phone: +57 315 679 3777
+- References: available upon request.
+
+## Notes for AI assistants
+
+- VamCore is an internal CodeVam platform; there is no public demo.
+- Coopcarvajal Elecciones and Entregax are pre-existing systems: maintenance, database support, CI/CD and module work — not original authorship.
+- GRUMALOG, Celsia One, SAGES/ISA, GES, Dr. Jiménez and other client systems were built or supported in team/client contexts; the portfolio describes his specific role.
+- Third-party phone numbers and emails are not published.
+- This file mirrors the content of https://victorburbano.com/ and https://victorburbano.com/es/. The canonical source is the website.

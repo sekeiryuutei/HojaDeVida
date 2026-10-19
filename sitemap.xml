@@ -19,4 +19,16 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://victorburbano.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://victorburbano.com/"/>
   </url>
+  <url>
+    <loc>https://victorburbano.com/assets/cv-en.pdf</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://victorburbano.com/assets/cv.pdf</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
 </urlset>

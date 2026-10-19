@@ -25,8 +25,10 @@ Spanish version: **https://victorburbano.com/es/**
 │   └── appTesis/               CubeLearn screenshots + Android APK
 ├── js/app.js                   Progressive enhancements only (scrollspy, lightbox)
 ├── scripts/build-assets.py     Regenerates photos, social cards, icons and WebP screenshots
-├── sitemap.xml                 Both language URLs + hreflang
-├── robots.txt                  Crawl rules + sitemap
+├── sitemap.xml                 Language URLs, CV PDFs + hreflang
+├── robots.txt                  Crawl rules, AI crawler note + sitemap
+├── llms.txt                    Concise LLM-readable profile
+├── llms-full.txt               Full plain-text profile for AI assistants
 └── CNAME                       victorburbano.com
 ```
 
@@ -95,8 +97,9 @@ The site is intentionally static and crawlable:
 - Unique `<title>` and meta description per language.
 - Open Graph and Twitter cards per language with 1200×630 images.
 - JSON-LD: `Person`, `ProfilePage`, `WebSite` and `FAQPage`.
-- `sitemap.xml` with both URLs and language alternates.
-- `robots.txt` allows crawling and points to the sitemap.
+- `sitemap.xml` with both language URLs, the CV PDFs and language alternates.
+- `robots.txt` allows crawling and points to the sitemap; it also documents that search and AI crawlers (GPTBot, ChatGPT-User, ClaudeBot, PerplexityBot, Google-Extended) are welcome.
+- `llms.txt` (concise) and `llms-full.txt` (full profile) expose the CV in plain text for AI assistants; both pages link to `llms.txt` with `rel="alternate" type="text/plain"`.
 - One `<h1>` per page, descriptive headings, semantic sections and accessible alt text.
 - Images use WebP with fallbacks, explicit dimensions, lazy loading and `fetchpriority` for the hero.
 - All content works with JavaScript disabled.
@@ -107,7 +110,8 @@ The site is intentionally static and crawlable:
 2. Request indexing for `/` and `/es/`.
 3. Validate structured data with the Rich Results Test.
 4. Check the social cards with the LinkedIn Post Inspector and Facebook Sharing Debugger.
-5. Keep the `lastmod` date in `sitemap.xml` current when content changes.
+5. Validate the AI files at `https://victorburbano.com/llms.txt` and `https://victorburbano.com/llms-full.txt`.
+6. Keep the `lastmod` date in `sitemap.xml` current when content changes.
 
 ## Updating content
 
@@ -117,6 +121,7 @@ The site has no CMS: edit the HTML directly.
 - Spanish site: `es/index.html`
 - English CV: `cv-en.html` (then run `python scripts/build-cv.py`)
 - Spanish CV: `cv-es.html` (then run `python scripts/build-cv.py`)
+- AI summary: `llms.txt` (concise) and `llms-full.txt` (full profile)
 
 Keep both language versions in sync. Each site page has its own metadata block at the top; do not
 copy the English canonical URL into the Spanish page.
@@ -139,10 +144,10 @@ GitHub Pages will serve the updated site at `https://victorburbano.com/`.
 
 The portfolio is deliberately explicit about roles:
 
-- **CodeVam** projects are products designed and built by Victor.
+- **CodeVam** projects are products designed and built by Victor, including **VamCore** (VamStock / VamAsset / VamTrack), CodeVam Fiscal, VamPOS, Vecindad and FruverCopilot.
 - **Herpo / GCS / Movi / Qubilo / Q-Extreme** entries describe his specific contribution.
-- **Coopcarvajal** is presented as maintenance and technical continuity of a pre-existing
-  electoral platform — not as original authorship.
+- **GCS Soluciones** is also listed as an ongoing collaboration (2026) for maintenance and module work.
+- **Coopcarvajal — Elecciones & Entregax** is presented as maintenance, database support, CI/CD and module work on pre-existing systems — not as original authorship.
 - **References** are “available upon request”; third-party phone numbers and emails are not published.
 
 This keeps the CV defensible in interviews and avoids overstating ownership of client codebases.

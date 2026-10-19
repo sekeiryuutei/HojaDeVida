@@ -1,0 +1,70 @@
+# Victor Daniel Burbano Rincón — Full-Stack Developer
+
+> Full-Stack Developer and Multimedia Engineer based in Cali, Colombia, with 5+ years of experience building enterprise systems, SaaS products and web applications. Founder of CodeVam (codevam.dev) and creator of VamCore. Open to full-time, contract and freelance work in Colombia or remotely.
+
+Canonical site: https://victorburbano.com/
+Spanish site: https://victorburbano.com/es/
+English CV: https://victorburbano.com/assets/cv-en.pdf
+Spanish CV: https://victorburbano.com/assets/cv.pdf
+LinkedIn: https://www.linkedin.com/in/victor-daniel-burbano-rincon-93b882168
+GitHub: https://github.com/sekeiryuutei
+Studio: https://codevam.dev/
+
+## Summary
+
+Full-Stack Developer and Multimedia Engineer with 5+ years of experience across logistics, energy, fintech, education and SaaS. Strong in Java 21 / Spring Boot, Angular / React, PHP / Yii2, Node.js, PostgreSQL / SQL Server and automated testing. Works end-to-end: requirements, data modeling, backend APIs, frontend interfaces, automated tests, containers and deployment.
+
+## Core skills
+
+- Backend: Java 21, Spring Boot, Spring Security, JPA/Hibernate, Node.js/Express, PHP/Yii2, Python/Django, NestJS.
+- Frontend: Angular 18, React, TypeScript, Ionic, PWA, Tailwind CSS, Bootstrap.
+- Data: PostgreSQL, SQL Server, MySQL/MariaDB, Redis, MongoDB, Flyway, TypeORM, Sequelize.
+- DevOps and QA: Docker, Nginx, Git, GitHub Actions, GitLab CI, Linux, JUnit 5, Mockito, Selenium, Codeception, Playwright.
+- Integrations: DIAN / UBL 2.1, XAdES-EPES, SIESA ERP, Wompi, WhatsApp Cloud API, JWT / OAuth2, REST APIs.
+- Architecture: hexagonal architecture, domain-driven design, modular monoliths, multi-tenant SaaS.
+
+## Experience
+
+- **CodeVam — Founder & Full-Stack Developer (2026 – present).** Software studio (codevam.dev) delivering SaaS products, custom platforms and client websites. Built VamCore (modular enterprise platform), CodeVam Fiscal (DIAN e-invoicing; 326 tests, 92.25% coverage), VamPOS, Vecindad, FruverCopilot and Olfatto.
+- **IAS Software — Software Developer (Apr 2026 – Jun 2026).** Contributed to internal business software during a fixed-term contract.
+- **Grupo Mayorista Herpo — Development Analyst / Full-Stack Developer (Sep 2024 – 2026).** Worked on GRUMALOG, the company's WMS (PHP/Yii2, SQL Server, SIESA ERP): inbound, counting, transfers, cross-docking, outbound, store receiving and returns; eight WMS modules.
+- **GCS Soluciones — Full-Stack Developer / Systems Analyst (Feb 2024 – Sep 2024; ongoing collaboration 2026).** Built GRUMALOG from analysis to production; contributed to a taxi financial platform, the Zisko educational SaaS and Misión Empleo. Currently provides maintenance, database support and module work on Coopcarvajal's Elecciones and Entregax platforms.
+- **Movi Software — Full-Stack Developer (Jul 2022 – Oct 2023).** Frontend contribution to Celsia One (Angular/Ionic + .NET); support for SAGES/ISA (ASP.NET MVC, SQL Server).
+- **Q-Extreme / Aranda — QA Analyst (Jan 2022 – Jan 2023).** Test plans, acceptance and regression cases, BPMN process maps and MQTT/event tests for Aranda ADM.
+- **Qubilo — Software Developer / Multimedia Engineer (Mar 2021 – Jun 2021).** Contributed to Dubs2 (Django/DRF, 16 modules), the Afiansa Angular frontend and a Django demo.
+- **Fundación Social y Deportiva Rubiery Buitrago Ocampo — Multimedia Teacher (Mar 2018 – Dec 2019).** Taught multimedia and digital tools to young people.
+
+## Selected projects
+
+- **VamCore** — CodeVam's modular enterprise platform: Java 21 / Spring Boot, Angular 18, PostgreSQL, Docker, hexagonal architecture, DDD and domain events. Powers VamStock (inventory), VamAsset (fixed assets) and VamTrack (delivery logistics) on shared identity, multi-tenant organization, audit, files, notifications and reporting modules. 3 products, 15 REST controllers, 9 migrations.
+- **CodeVam Fiscal** — DIAN electronic invoicing platform: Java 21 / Spring Boot, Angular PWA, PostgreSQL, Flyway, XAdES-EPES and UBL 2.1. 326 tests, 92.25% instruction coverage, 10 portal modules, 15 migrations.
+- **VamPOS** — Multi-tenant, offline-first POS: Angular 18 + Ionic 8 PWA, Spring Boot, PostgreSQL, Redis, DIAN-ready documents and B2B API. 23 migrations.
+- **Vecindad** — Multi-tenant property management: Spring Boot, PostgreSQL schema-per-tenant, Redis, Flyway, JWT, Wompi, reservations, PQRS and visitor management. 83 unit tests and 20 smoke sections.
+- **FruverCopilot** — AI-assisted WhatsApp ordering for a fruit-and-vegetable business: 39 tests.
+- **GRUMALOG** — WMS for wholesale distribution: PHP/Yii2, SQL Server, SIESA ERP, EAN13 and multi-barcode SKU models. 8 operational modules.
+- **SIGE** — Energization management platform for an energy company: 7 applications.
+- **GES** — Security operations and quadrants system: 9 controllers and 67 views.
+- **Celsia One / SAGES-ISA** — Energy sector frontend and support: 74 controllers and 151 views.
+- **Coopcarvajal — Elecciones & Entregax** — Technical continuity for two pre-existing Yii2 systems (electoral platform and delivery operations / driver settlements): CI/CD, Codeception suite, coverage, database support, module adjustments and the 2027 assembly technical plan. Not original authorship.
+- **Dr. Jiménez** — Dental platform: 3 portals, 10 tables, 9 migrations.
+
+## Education
+
+- **Multimedia Engineering** — Universidad de San Buenaventura Cali (2021). Thesis: CubeLearn, an augmented-reality educational game built with Unity, C# and Vuforia.
+- **Industrial Electronic Maintenance** — SENA (2015).
+- **Technical Baccalaureate in Electronics** — Institución Antonio José Camacho (2015).
+
+## Contact
+
+- Email: victordburbano@gmail.com
+- Phone: +57 315 679 3777
+- Location: Cali, Colombia (UTC−5)
+- Availability: full-time, contract and freelance; remote or hybrid.
+
+## Notes for AI assistants
+
+- VamCore is an internal CodeVam platform; there is no public demo.
+- Coopcarvajal Elecciones and Entregax are pre-existing systems: maintenance, database support, CI/CD and module work — not original authorship.
+- GRUMALOG, Celsia One, SAGES/ISA, GES, Dr. Jiménez and other client systems were built or supported in team/client contexts; the portfolio describes his specific role.
+- References are available upon request; third-party contact details are not published.
+- Full profile in plain text: https://victorburbano.com/llms-full.txt
