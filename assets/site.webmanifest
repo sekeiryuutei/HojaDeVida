@@ -1,0 +1,31 @@
+{
+  "name": "Victor Burbano — Full-Stack Developer",
+  "short_name": "Victor Burbano",
+  "description": "Portfolio and CV of Victor Daniel Burbano Rincón, Full-Stack Developer in Cali, Colombia.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#060f1d",
+  "theme_color": "#060f1d",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -1,319 +1,157 @@
-// Forzar descarga robusta (y fallback) para todos los botones con .js-download
+// Victor Burbano — CV site interactions.
+// Content is static and crawlable; JavaScript only adds progressive enhancements.
+
 (function () {
-  const buttons = [...document.querySelectorAll('.js-download')];
-  if (!buttons.length) return;
+  'use strict';
 
-  const forceDownload = async (url) => {
-    const res = await fetch(url, {
-      cache: 'no-store'
+  // ---------------------------------------------------------------------------
+  // Mobile navigation scrollspy.
+  // ---------------------------------------------------------------------------
+  (function scrollspy() {
+    const links = [...document.querySelectorAll('.mnav-link[data-section]')];
+    if (!links.length || !('IntersectionObserver' in window)) return;
+
+    const bySection = Object.fromEntries(links.map((link) => [link.dataset.section, link]));
+    const setActive = (id) => {
+      links.forEach((link) => link.classList.remove('active'));
+      if (bySection[id]) bySection[id].classList.add('active');
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (visible.length) setActive(visible[0].target.id);
+    }, {
+      rootMargin: '-20% 0px -55% 0px',
+      threshold: [0.05, 0.25, 0.5]
     });
-    if (!res.ok) throw new Error('No se encontró el archivo (' + res.status + ')');
-    const blob = await res.blob();
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'Victor_Burbano_CV.pdf';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-  };
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      e.preventDefault();
-      const url = btn.getAttribute('href') || './assets/cv.pdf';
-      try {
-        await forceDownload(url);
-      } catch {
-        window.open(url, '_blank');
+    document.querySelectorAll('main section[id], main aside[id]').forEach((section) => {
+      observer.observe(section);
+    });
+
+    // Initial state: first section.
+    setActive('about');
+  })();
+
+  // ---------------------------------------------------------------------------
+  // Accessible lightbox for the CubeLearn screenshots.
+  // ---------------------------------------------------------------------------
+  (function lightbox() {
+    const dialog = document.getElementById('lightbox');
+    const image = document.getElementById('lightbox-img');
+    const closeButton = document.getElementById('lightbox-close');
+    const previousButton = document.getElementById('lightbox-prev');
+    const nextButton = document.getElementById('lightbox-next');
+    if (!dialog || !image || !closeButton || !previousButton || !nextButton) return;
+
+    const images = [...document.querySelectorAll('.screenshot-img')];
+    if (!images.length) return;
+
+    let current = 0;
+    let lastFocused = null;
+
+    const updateArrows = () => {
+      previousButton.disabled = current === 0;
+      nextButton.disabled = current === images.length - 1;
+    };
+
+    const show = (index) => {
+      current = index;
+      const source = images[current];
+      image.src = source.currentSrc || source.src;
+      image.alt = source.alt || '';
+      updateArrows();
+    };
+
+    const open = (index) => {
+      lastFocused = document.activeElement;
+      show(index);
+      dialog.classList.add('open');
+      dialog.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      closeButton.focus();
+    };
+
+    const close = () => {
+      dialog.classList.remove('open');
+      dialog.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      image.src = '';
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    };
+
+    dialog.setAttribute('aria-hidden', 'true');
+
+    images.forEach((img, index) => {
+      img.setAttribute('tabindex', '0');
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', 'Open image: ' + (img.alt || 'CubeLearn screenshot'));
+      img.addEventListener('click', () => open(index));
+      img.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          open(index);
+        }
+      });
+    });
+
+    previousButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (current > 0) show(current - 1);
+    });
+    nextButton.addEventListener('click', (event) => {
+      event.stopPropagation();
+      if (current < images.length - 1) show(current + 1);
+    });
+    closeButton.addEventListener('click', close);
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) close();
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!dialog.classList.contains('open')) return;
+      if (event.key === 'Escape') close();
+      if (event.key === 'ArrowLeft' && current > 0) show(current - 1);
+      if (event.key === 'ArrowRight' && current < images.length - 1) show(current + 1);
+      if (event.key === 'Tab') {
+        // Keep focus inside the dialog.
+        const focusable = [closeButton, previousButton, nextButton].filter((el) => !el.disabled);
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
       }
     });
-  });
-})();
+  })();
 
-// Scroll suave
-document.documentElement.style.scrollBehavior = 'smooth';
+  // ---------------------------------------------------------------------------
+  // Dynamic year (keeps the footer current without editing HTML every year).
+  // ---------------------------------------------------------------------------
+  (function year() {
+    const target = document.getElementById('y');
+    if (target) target.textContent = String(new Date().getFullYear());
+  })();
 
-// Language switching
-const translations = {
-  en: {
-    download: "Download PDF",
-    contact: "Contact",
-    projects: "Projects",
-    experience: "Experience",
-    badge: "Multimedia Engineer • Cali",
-    subtitle: "Web Development • QA • Multimedia Design/Editing",
-    "profile-title": "Professional Profile",
-    "profile-text": "Multimedia Engineer and Software Developer specialized in <strong>full-stack JavaScript development and enterprise backend systems</strong>. Experienced building <strong>scalable web applications</strong> using Node.js, Express, React, Angular, and REST API architectures, with implementation of JWT-based authentication, token login systems, and ORM solutions such as Sequelize.<br><br>Professional experience includes the design and development of <strong>enterprise platforms for the energy sector (Celsia)</strong>, warehouse management systems (WMS), operational management platforms, financial systems, and educational SaaS architectures. Complementary backend experience in PHP (Yii2) and Python (Django), with relational database modeling, Docker environments, and enterprise ERP integration (Siesa).<br><br>My profile combines <strong>backend development, system architecture, API design, and enterprise process optimization</strong> — delivering robust and scalable technological solutions.",
-    "knowledge-title": "Knowledge and Frameworks",
-    "contact-title": "Contact",
-    email: "Email",
-    phone: "Phone",
-    city: "City",
-    "city-value": "Cali • Colombia",
-    linkedin: "LinkedIn",
-    github: "GitHub",
-    instagram: "Instagram",
-    "education-title": "Education",
-    "education-1": "<strong>Multimedia Engineering</strong> — Universidad San Buenaventura Cali (2021) <a href=\"https://drive.google.com/file/d/1N53zUvtVeZSyQRtCM3n5HyFe71KOCU1t/view\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "education-2": "<strong>Industrial Electronic Maintenance</strong> — SENA (2015) <a href=\"https://drive.google.com/file/d/1Xv7XEoY41XVSQtFZG1aqArbHTIEgxP6_/view\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "education-3": "<strong>Technical Baccalaureate (Electronics)</strong> — Institución Antonio José Camacho (2015)",
-    "soft-skills-title": "Soft Skills",
-    "soft-1": "Clear communication and idea transmission",
-    "soft-2": "Teamwork and sense of belonging",
-    "soft-3": "Constant research and continuous learning",
-    "soft-4": "Adaptability and problem-solving under pressure",
-    "soft-5": "Leadership and effective team coordination",
-    "soft-6": "Time management and project organization",
-    "certifications-title": "Certifications and Courses",
-    "cert-1": "Google Ads — Next U (2020) · <a href=\"https://www.credential.net/29cb036b-2101-41da-89ec-3e7151015d6b#acc.sI92fw18\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "cert-2": "IT Support — Next U (2020) · <a href=\"https://www.credential.net/253bd14a-de18-405d-8e92-7f70947f1e5c#acc.TrHBRwLs\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "cert-3": "Web Development — Next U (2020) · <a href=\"https://www.credential.net/45580786-54f1-4c8f-b5db-5fa089366025#acc.VzKkHpOJ\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "cert-4": "Diploma in Design and Construction of Multimedia Projects — USB Cali (2020) · <a href=\"https://acortar.link/OXK51R\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "cert-5": "Training in Learning Environments — SENA (2021) · <a href=\"https://acortar.link/zm6are\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "cert-6": "Project Management — Politécnico de Colombia (2023) · <a href=\"https://acortar.link/hOAvzR\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "cert-7": "Scrum Foundations Professional Certificate — CertiProf (2023) · <a href=\"https://acortar.link/tGBiKX\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "cert-8": "Software Testing Annual Report 2025 – Contribution Certificate — AICS (2025) · <a href=\"https://drive.google.com/file/d/1w7XXswrrliCFYxfVLPJGfJvYvTbjV70G/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">View certificate</a>",
-    "experience-title": "Experience",
-    "job-1-title": "GRUPO MAYORISTA HERPO S.A.S. — Development Analyst / Full Stack Developer",
-    "job-1-when": "June 2025 – Present | Supervisor: Jorge Idarraga – Technology Manager",
-    "job-1-desc": "• Hired directly by Herpo following the development of GRUMALOG as an external provider through GSC Soluciones.<br>• Administration, support, and evolutionary maintenance of the Logistics Information System (GRUMALOG).<br>• Development of new features and enhancements on the existing platform (PHP – Yii2 – SQL Server).<br>• Incident handling, adjustments, and system optimization based on business needs.<br>• End-user support and continuous system improvement.<br>• Participation in the functional evolution of the system aligned with the company's operational processes.<br>• Design of relational database architectures and enterprise data models.<br>• Development and integration of REST APIs for interoperability with ERP (Siesa).<br><br><strong>Key Projects</strong><br><em>GRUMALOG – Logistics Information System</em><br>• Evolutionary maintenance and new feature development on the WMS platform.<br>• Automation of inventory reconciliation processes between physical stock and ERP.<br>• Development of transfer and inventory auditing systems for warehouses.<br>• Implementation of SKU logical inventory models supporting multiple barcodes per product.<br>• SQL query optimization for large operational datasets.",
-    "job-2-title": "GSC SOLUCIONES — Full Stack Developer",
-    "job-2-when": "February 2024 – September 2024 | Supervisor: Gustavo Castaño Soto",
-    "job-2-desc": "• Participated in the analysis, design, development, testing, and implementation of the Logistics Information System for Grupo Mayorista Herpo (client).<br>• Development in PHP using the Yii2 framework.<br>• Database management in SQL Server.<br>• Requirements gathering with end users and definition of technical solutions.<br>• Quality assurance through functional testing and production go-live support.<br><br><strong>Key Projects</strong><br><em>Logistics Information System (GRUMALOG) — Grupo Mayorista Herpo (client)</em><br>• Full development cycle: analysis, design, development, and production deployment.<br>• Integration with Siesa ERP for operational data synchronization.<br>• Inventory reconciliation processes between physical stock and ERP.<br>• Implementation of SKU logical inventory models supporting multiple barcodes per product.<br>• This engagement led to direct hire by Herpo upon project completion.<br><br><em>Gestión de Taxis – Financial Operations Platform</em><br>• Driver accounts, operational collections, and daily payments.<br>• Savings management for drivers and daily closing/reconciliation processes.<br><br><em>Zisko – Educational SaaS Platform</em><br>• Backend architecture using Django and Django REST Framework.<br>• Multi-tenant architecture using Django Tenants.<br>• Angular frontend integration with JWT authentication.<br>• Containerized environments using Docker.<br><br><em>Misión Empleo – Employment Platform for Retired Soldiers</em><br>• Web application developed for the Batallón de Cali to support pensioned soldiers in finding employment.<br>• Job listing management and candidate profile matching.<br>• Administrative panel for battalion staff to manage offers and applicants.",
-    "job-freelance-title": "INDEPENDENT SOFTWARE DEVELOPER / FREELANCE",
-    "job-freelance-when": "Various Projects | 2023 – 2024",
-    "job-freelance-desc": "<strong>Key Projects</strong><br><em>Security Management Platform</em><br>• Guard shift scheduling, assignment, and auditing.<br>• Incident and event logging with traceability reporting.<br>• Operational reports for security supervisors.<br><br><em>GES – Service Management System</em><br>• Creation and management of service orders with technician scheduling.<br>• Automatic email notifications to clients and operators.<br>• Status monitoring and service workflow automation.",
-    "job-3-title": "Movi Software SAS — Full Stack Developer / Support",
-    "job-3-when": "July 2022 – October 2023 | Supervisor: Juan Camilo Cardona",
-    "job-3-desc": "• Development and maintenance of enterprise web systems.<br>• Backend and frontend development for corporate platforms.<br>• Database optimization and maintenance.<br>• Production system support and incident resolution.<br>• Data synchronization processes between systems.<br><br><strong>Key Projects</strong><br><em>SAGES – ISA (Interconexión Eléctrica S.A.)</em><br>• Technical support and maintenance of SAGES, an enterprise application for ISA, a leading multinational in high-voltage energy transmission.<br>• Bug fixing and incident resolution in .NET environment.<br>• Data synchronization processes between enterprise systems.<br><br><em>Celsia Energy Sector Platforms</em><br>• Frontend development using React and Angular for operational dashboards.<br>• Integration of REST APIs with backend services.<br>• Implementation of user interfaces for energy management systems.<br>• Responsive design and cross-browser compatibility.",
-    "job-4-title": "Q-Extreme / Aranda — QA Test Analyst (Remote)",
-    "job-4-when": "Jan 2022 – Jan 2023",
-    "job-4-desc": "Automation with Selenium, multimedia design.",
-    "job-5-title": "Qubilo — Multimedia Engineer",
-    "job-5-when": "Mar 2021 – Jun 2021",
-    "job-5-desc": "Programming of applications and multimedia design.",
-    "job-6-title": "Fundación Social y Deportiva Rubiery Buitrago Ocampo — Multimedia Teacher",
-    "job-6-when": "Mar 2018 – Dec 2019",
-    "job-6-desc": "Multimedia teaching.",
-    "projects-title": "Featured Projects",
-    "project-1": "<strong>Celsi One</strong>: Enterprise application for Celsia clients using Angular and Ionic; mobile and web interfaces for business operations; integration with corporate systems.",
-    "project-2": "<strong>Gestión de Consignaciones Programadas (GCP)</strong>: Full-stack application using Node.js, Express, and React; management of scheduled consignments; backend API development and frontend user interfaces.",
-    "project-3": "<strong>GRUMALOG – Logistics Information System (WMS)</strong>: Full development cycle at GSC Soluciones for Grupo Mayorista Herpo; inventory reconciliation between physical stock and ERP (Siesa); transfer and auditing systems; SKU logical inventory models with multiple barcodes; SQL query optimization.",
-    "project-4": "<strong>Security Management Platform</strong>: Guard shift scheduling, assignment, and auditing; incident logging with traceability; operational reports for supervisors.",
-    "project-5": "<strong>Gestión de Taxis – Financial Operations Platform</strong>: Driver accounts, collections, and payments; savings management and daily reconciliation processes.",
-    "project-6": "<strong>Zisko – Educational SaaS Platform</strong>: Backend with Django and DRF, multi-tenant architecture, Angular frontend with JWT, Docker containers.",
-    "cubelearn-title": "CUBELEARN — Augmented Reality Educational Game",
-    "cubelearn-when": "University Thesis Project — Universidad San Buenaventura Cali (2021)",
-    "cubelearn-desc": "Educational mobile game designed to teach programming concepts to children through physical interaction. Players scan AR markers (Vuforia) with their device camera to trigger actions — characters on screen move accordingly. Each board presents a challenge: guide the fire truck to extinguish the fire by arranging markers in the correct sequence, applying concepts like <strong>ordered instructions and loops</strong>. Built with <strong>Unity and C#</strong>, compatible with Android 4.0+.",
-    "cubelearn-download": "Download APK (Android 4+)",
-    "cubelearn-tip": "Want to try it? Install the APK and point your camera at the markers shown in image 3 (Instructions): right, left, up, down — or the loop marker to repeat a sequence.",
-    "references-title": "References",
-    "ref-1": "<strong>Ana Cilia Rincón Beltrán</strong> — SENA Instructor. Tel: 315 852 6811.",
-    "ref-2": "<strong>Luis Hernando Torres Osorio</strong> — HIMA Paul Hildebrandt GmbH. <a href=\"mailto:l.torres@hima.com\">l.torres@hima.com</a>",
-    footer: "© <span id=\"y\"></span> Victor Daniel Burbano Rincón · Minimal CV site.",
-    "nav-profile": "Profile",
-    "nav-projects": "Projects",
-    "nav-experience": "Experience",
-    "nav-contact": "Contact",
-    "nav-cv": "CV",
-    "view-cert": "View certificate"
-  },
-  es: {
-    download: "Descargar PDF",
-    contact: "Contacto",
-    projects: "Proyectos",
-    experience: "Experiencia",
-    badge: "Ingeniero Multimedia • Cali",
-    subtitle: "Desarrollo Web • QA • Diseño/Edición Multimedia",
-    "profile-title": "Perfil profesional",
-    "profile-text": "Ingeniero Multimedia y Desarrollador de Software especializado en desarrollo full-stack JavaScript y sistemas backend empresariales. Experiencia en la construcción de aplicaciones web escalables utilizando Node.js, Express, React, Angular y arquitecturas REST API, con implementación de autenticación basada en JWT, sistemas de login con tokens y soluciones ORM como Sequelize.<br><br>Experiencia profesional incluye el diseño y desarrollo de plataformas empresariales para el sector energético (Celsia), sistemas de gestión de almacenes (WMS), plataformas de gestión operativa, sistemas financieros y arquitecturas SaaS educativas. Experiencia complementaria en backend con PHP (Yii2) y Python (Django), modelado de bases de datos relacionales, entornos Docker y integración ERP empresarial (Siesa).<br><br>Mi perfil combina desarrollo backend, arquitectura de sistemas, diseño de APIs y optimización de procesos empresariales — entregando soluciones tecnológicas robustas y escalables.",
-    "knowledge-title": "Conocimientos y Frameworks",
-    "contact-title": "Contacto",
-    email: "Email",
-    phone: "Teléfono",
-    city: "Ciudad",
-    "city-value": "Cali • Colombia",
-    linkedin: "LinkedIn",
-    github: "GitHub",
-    instagram: "Instagram",
-    "education-title": "Educación",
-    "education-1": "<strong>Ingeniería Multimedia</strong> — Universidad San Buenaventura Cali (2021) <a href=\"https://drive.google.com/file/d/1N53zUvtVeZSyQRtCM3n5HyFe71KOCU1t/view\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "education-2": "<strong>Mantenimiento electrónico industrial</strong> — SENA (2015) <a href=\"https://drive.google.com/file/d/1Xv7XEoY41XVSQtFZG1aqArbHTIEgxP6_/view\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "education-3": "<strong>Bachiller técnico (electrónica)</strong> — Institución Antonio José Camacho (2015)",
-    "soft-skills-title": "Habilidades blandas",
-    "soft-1": "Comunicación clara y transmisión de ideas",
-    "soft-2": "Trabajo en equipo y sentido de pertenencia",
-    "soft-3": "Investigación constante y aprendizaje continuo",
-    "soft-4": "Adaptabilidad y resolución de problemas bajo presión",
-    "soft-5": "Liderazgo y coordinación efectiva de equipos",
-    "soft-6": "Gestión del tiempo y organización de proyectos",
-    "certifications-title": "Certificaciones y cursos",
-    "cert-1": "Google Ads — Next U (2020) · <a href=\"https://www.credential.net/29cb036b-2101-41da-89ec-3e7151015d6b#acc.sI92fw18\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "cert-2": "Soporte técnico de IT — Next U (2020) · <a href=\"https://www.credential.net/253bd14a-de18-405d-8e92-7f70947f1e5c#acc.TrHBRwLs\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "cert-3": "Desarrollo Web — Next U (2020) · <a href=\"https://www.credential.net/45580786-54f1-4c8f-b5db-5fa089366025#acc.VzKkHpOJ\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "cert-4": "Diplomado Diseño y Construcción de Proyectos Multimedia — USB Cali (2020) · <a href=\"https://acortar.link/OXK51R\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "cert-5": "Formación en ambientes de aprendizaje — SENA (2021) · <a href=\"https://acortar.link/zm6are\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "cert-6": "Gerencia de Proyectos — Politécnico de Colombia (2023) · <a href=\"https://acortar.link/hOAvzR\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "cert-7": "Scrum Foundations Professional Certificate — CertiProf (2023) · <a href=\"https://acortar.link/tGBiKX\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "cert-8": "Software Testing Annual Report 2025 – Contribution Certificate — AICS (2025) · <a href=\"https://drive.google.com/file/d/1w7XXswrrliCFYxfVLPJGfJvYvTbjV70G/view?usp=sharing\" target=\"_blank\" rel=\"noopener\">Ver certificado</a>",
-    "experience-title": "Experiencia",
-    "job-1-title": "GRUPO MAYORISTA HERPO S.A.S. — Analista de Desarrollo / Desarrollador Full Stack",
-    "job-1-when": "Junio 2025 – Presente | Supervisor: Jorge Idarraga – Gerente de Tecnología",
-    "job-1-desc": "• Contratado directamente por Herpo tras el desarrollo de GRUMALOG como proveedor externo a través de GSC Soluciones.<br>• Administración, soporte y mantenimiento evolutivo del Sistema de Información de Logística (GRUMALOG).<br>• Desarrollo de nuevas funcionalidades y mejoras sobre la plataforma existente (PHP – Yii2 – SQL Server).<br>• Atención de incidentes, ajustes y optimización del sistema según necesidades de la empresa.<br>• Acompañamiento a usuarios finales y mejora continua del sistema.<br>• Participación en la evolución funcional del sistema alineado a los procesos operativos de la compañía.<br>• Diseño de arquitecturas de bases de datos relacionales y modelos de datos empresariales.<br>• Desarrollo e integración de APIs REST para interoperabilidad con ERP (Siesa).<br><br><strong>Proyectos Clave</strong><br><em>GRUMALOG – Sistema de Información de Logística</em><br>• Mantenimiento evolutivo y desarrollo de nuevas funcionalidades sobre la plataforma WMS.<br>• Automatización de procesos de conciliación de inventario entre stock físico y ERP.<br>• Desarrollo de sistemas de traslados y auditoría de inventarios para almacenes.<br>• Implementación de modelos de inventario SKU lógicos con múltiples códigos de barras por producto.<br>• Optimización de consultas SQL para datasets operativos grandes.",
-    "job-2-title": "GSC SOLUCIONES — Desarrollador Full Stack",
-    "job-2-when": "Febrero 2024 – Septiembre 2024 | Supervisor: Gustavo Castaño Soto",
-    "job-2-desc": "• Participé en el análisis, diseño, desarrollo, pruebas e implementación del Sistema de Información de Logística para Grupo Mayorista Herpo (cliente).<br>• Desarrollo realizado en PHP utilizando el framework Yii2.<br>• Gestión de base de datos en SQL Server.<br>• Levantamiento de requerimientos con usuarios y definición de soluciones técnicas.<br>• Aseguramiento de calidad mediante pruebas funcionales y soporte en salida a producción.<br><br><strong>Proyectos Clave</strong><br><em>Sistema de Información de Logística (GRUMALOG) — Grupo Mayorista Herpo (cliente)</em><br>• Ciclo completo de desarrollo: análisis, diseño, desarrollo e implementación en producción.<br>• Integración con ERP Siesa para sincronización de datos operativos.<br>• Procesos de conciliación de inventario entre stock físico y ERP.<br>• Implementación de modelos de inventario SKU lógicos con múltiples códigos de barras por producto.<br>• Este proyecto fue la base para ser contratado directamente por Herpo.<br><br><em>Gestión de Taxis – Plataforma de Operaciones Financieras</em><br>• Cuentas de conductores, cobros operativos y pagos diarios.<br>• Gestión de ahorros para conductores y procesos de cierre/reconciliación diarios.<br><br><em>Zisko – Plataforma SaaS Educativa</em><br>• Arquitectura backend usando Django y Django REST Framework.<br>• Arquitectura multi-tenant usando Django Tenants.<br>• Integración de frontend Angular con autenticación JWT.<br>• Entornos contenerizados usando Docker.<br><br><em>Misión Empleo – Plataforma de Empleo para Soldados Pensionados</em><br>• Aplicación web desarrollada para el Batallón de Cali para apoyar a soldados pensionados en la búsqueda de empleo.<br>• Gestión de ofertas laborales y perfiles de candidatos.<br>• Panel administrativo para el personal del batallón para gestionar ofertas y postulantes.",
-    "job-freelance-title": "DESARROLLADOR DE SOFTWARE INDEPENDIENTE / FREELANCE",
-    "job-freelance-when": "Proyectos Varios | 2023 – 2024",
-    "job-freelance-desc": "<strong>Proyectos Clave</strong><br><em>Plataforma de Gestión de Seguridad</em><br>• Programación de turnos de guardias, asignación y auditoría.<br>• Registro de incidentes y eventos con reportes de trazabilidad.<br>• Reportes operativos para supervisores de seguridad.<br><br><em>GES – Sistema de Gestión de Servicios</em><br>• Creación y gestión de órdenes de servicio con programación de técnicos.<br>• Notificaciones automáticas por email a clientes y operadores.<br>• Monitoreo de estado y automatización de flujo de servicios.",
-    "job-3-title": "Movi Software SAS — Desarrollador Full Stack / Soporte",
-    "job-3-when": "Julio 2022 – Octubre 2023 | Supervisor: Juan Camilo Cardona",
-    "job-3-desc": "• Desarrollo y mantenimiento de sistemas web empresariales.<br>• Desarrollo backend y frontend para plataformas corporativas.<br>• Optimización y mantenimiento de bases de datos.<br>• Soporte a sistemas en producción y resolución de incidentes.<br>• Procesos de sincronización de datos entre sistemas.<br><br><strong>Proyectos Clave</strong><br><em>SAGES – ISA (Interconexión Eléctrica S.A.)</em><br>• Soporte técnico y mantenimiento de SAGES, aplicativo empresarial de ISA, grupo multilatina líder en transmisión de energía de alto voltaje.<br>• Corrección de bugs y resolución de incidentes en entorno .NET.<br>• Procesos de sincronización de datos entre sistemas empresariales.<br><br><em>Plataformas del Sector Energético Celsia</em><br>• Desarrollo frontend usando React y Angular para dashboards operativos.<br>• Integración de APIs REST con servicios backend.<br>• Implementación de interfaces de usuario para sistemas de gestión energética.<br>• Diseño responsivo y compatibilidad cross-browser.",
-    "job-4-title": "Q-Extreme / Aranda — Analista de Pruebas QA (Remoto)",
-    "job-4-when": "Ene 2022 – Ene 2023",
-    "job-4-desc": "Automatización con Selenium, diseño multimedia.",
-    "job-5-title": "Qubilo — Ingeniero Multimedia",
-    "job-5-when": "Mar 2021 – Jun 2021",
-    "job-5-desc": "Programación de aplicaciones y diseño multimedia.",
-    "job-6-title": "Fundación Social y Deportiva Rubiery Buitrago Ocampo — Docente de Multimedia",
-    "job-6-when": "Mar 2018 – Dic 2019",
-    "job-6-desc": "Docencia en multimedia.",
-    "projects-title": "Proyectos destacados",
-    "project-1": "<strong>Celsi One</strong>: Aplicación empresarial para clientes de Celsia usando Angular e Ionic; interfaces móviles y web para operaciones comerciales; integración con sistemas corporativos.",
-    "project-2": "<strong>Gestión de Consignaciones Programadas (GCP)</strong>: Aplicación full-stack usando Node.js, Express y React; gestión de consignaciones programadas; desarrollo de API backend e interfaces de usuario frontend.",
-    "project-3": "<strong>GRUMALOG – Sistema de Información de Logística (WMS)</strong>: Ciclo completo de desarrollo en GSC Soluciones para Grupo Mayorista Herpo; conciliación de inventario entre stock físico y ERP (Siesa); sistemas de traslados y auditoría; modelos de inventario SKU lógicos con múltiples códigos de barras; optimización de consultas SQL.",
-    "project-4": "<strong>Plataforma de Gestión de Seguridad</strong>: Programación de turnos de guardias, asignación y auditoría; registro de incidentes con trazabilidad; reportes operativos para supervisores.",
-    "project-5": "<strong>Gestión de Taxis – Plataforma de Operaciones Financieras</strong>: Cuentas de conductores, cobros y pagos; gestión de ahorros y reconciliación diaria.",
-    "project-6": "<strong>Zisko – Plataforma SaaS Educativa</strong>: Backend con Django y DRF, arquitectura multi-tenant, frontend Angular con JWT, contenedores Docker.",
-    "cubelearn-title": "CUBELEARN — Juego Educativo con Realidad Aumentada",
-    "cubelearn-when": "Proyecto de Grado — Universidad San Buenaventura Cali (2021)",
-    "cubelearn-desc": "Juego móvil educativo diseñado para enseñar conceptos de programación a niños mediante interacción física. Los jugadores escanean marcadores de RA (Vuforia) con la cámara del dispositivo para disparar acciones — los personajes en pantalla se mueven en consecuencia. Cada tablero plantea un reto: guiar el camión de bomberos hasta el incendio ordenando los marcadores en la secuencia correcta, aplicando conceptos como <strong>instrucciones ordenadas y ciclos</strong>. Desarrollado con <strong>Unity y C#</strong>, compatible con Android 4.0+.",
-    "cubelearn-download": "Descargar APK (Android 4+)",
-    "cubelearn-tip": "¿Quieres probarlo? Instala el APK y apunta la cámara a los marcadores que aparecen en la imagen 3 (Instrucciones): derecha, izquierda, arriba, abajo — o el marcador de ciclo para repetir una secuencia.",
-    "references-title": "Referencias",
-    "ref-1": "<strong>Ana Cilia Rincón Beltrán</strong> — Instructora SENA. Tel: 315 852 6811.",
-    "ref-2": "<strong>Luis Hernando Torres Osorio</strong> — HIMA Paul Hildebrandt GmbH. <a href=\"mailto:l.torres@hima.com\">l.torres@hima.com</a>",
-    footer: "© <span id=\"y\"></span> Victor Daniel Burbano Rincón · Sitio CV minimal.",
-    "nav-profile": "Perfil",
-    "nav-projects": "Proyectos",
-    "nav-experience": "Experiencia",
-    "nav-contact": "Contacto",
-    "nav-cv": "CV",
-    "view-cert": "Ver certificado"
-  }
-};
-
-let currentLang = 'en';
-
-function setLanguage(lang) {
-  currentLang = lang;
-  document.documentElement.lang = lang;
-  document.querySelectorAll('[data-key]').forEach(el => {
-    const key = el.dataset.key;
-    if (translations[lang][key]) {
-      el.innerHTML = translations[lang][key];
-    }
-  });
-  // Update button text
-  document.getElementById('lang-toggle').textContent = lang === 'en' ? 'ES' : 'EN';
-  // Update title and meta
-  document.title = lang === 'en' ? 'Victor Daniel Burbano Rincón — Multimedia Engineer' : 'Victor Daniel Burbano Rincón — Ingeniero Multimedia';
-  document.querySelector('meta[name="description"]').content = lang === 'en' ? 'Online CV of Victor Daniel Burbano Rincón — Web Development, QA, Multimedia.' : 'CV online de Victor Daniel Burbano Rincón — Desarrollo Web, QA, Multimedia.';
-  // Update PDF download link
-  const downloadBtn = document.querySelector('.js-download');
-  downloadBtn.href = lang === 'en' ? './assets/cv-en.pdf' : './assets/cv.pdf';
-  downloadBtn.download = lang === 'en' ? 'Victor_Burbano_CV_EN.pdf' : 'Victor_Burbano_CV.pdf';
-}
-
-document.getElementById('lang-toggle').addEventListener('click', () => {
-  setLanguage(currentLang === 'en' ? 'es' : 'en');
-});
-
-// Set initial language
-setLanguage('en');
-
-// Scrollspy del menú móvil
-(function () {
-  const links = [...document.querySelectorAll('.mnav-link[data-section]')];
-  if (!links.length) return;
-  const map = Object.fromEntries(links.map(a => [a.dataset.section, a]));
-
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      const id = e.target.id;
-      if (map[id] && e.isIntersecting) {
-        links.forEach(l => l.classList.remove('active'));
-        map[id].classList.add('active');
-      }
+  // ---------------------------------------------------------------------------
+  // Print: open all FAQ details so they are not clipped on paper.
+  // ---------------------------------------------------------------------------
+  (function printDetails() {
+    const details = [...document.querySelectorAll('details')];
+    if (!details.length) return;
+    let previous = [];
+    window.addEventListener('beforeprint', () => {
+      previous = details.map((item) => item.open);
+      details.forEach((item) => { item.open = true; });
     });
-  });
-
-  // Observe sections
-  document.querySelectorAll('section[id], aside[id]').forEach(section => obs.observe(section));
-})();
-
-// Lightbox
-(function () {
-  const lb = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lightbox-img');
-  const lbClose = document.getElementById('lightbox-close');
-  const lbPrev = document.getElementById('lightbox-prev');
-  const lbNext = document.getElementById('lightbox-next');
-
-  let images = [];
-  let current = 0;
-
-  function updateArrows() {
-    lbPrev.disabled = current === 0;
-    lbNext.disabled = current === images.length - 1;
-  }
-
-  function show(index) {
-    current = index;
-    lbImg.src = images[current].src;
-    lbImg.alt = images[current].alt || '';
-    updateArrows();
-  }
-
-  function open(index) {
-    show(index);
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function close() {
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-    lbImg.src = '';
-  }
-
-  images = [...document.querySelectorAll('.screenshot-img')];
-  images.forEach((img, i) => {
-    img.addEventListener('click', () => open(i));
-  });
-
-  lbPrev.addEventListener('click', e => { e.stopPropagation(); if (current > 0) show(current - 1); });
-  lbNext.addEventListener('click', e => { e.stopPropagation(); if (current < images.length - 1) show(current + 1); });
-  lbClose.addEventListener('click', close);
-  lb.addEventListener('click', e => { if (e.target === lb) close(); });
-  document.addEventListener('keydown', e => {
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape') close();
-    if (e.key === 'ArrowLeft' && current > 0) show(current - 1);
-    if (e.key === 'ArrowRight' && current < images.length - 1) show(current + 1);
-  });
-})();
-
-// Año dinámico
-(function () {
-  const span = document.getElementById('y');
-  if (span) span.textContent = new Date().getFullYear();
-  const span1 = document.getElementById('m');
-  if (span1) {
-    const mes = new Date().toLocaleString('es-ES', {
-      month: 'long'
+    window.addEventListener('afterprint', () => {
+      details.forEach((item, index) => { item.open = previous[index]; });
     });
-    span1.textContent = mes.charAt(0).toUpperCase() + mes.slice(1);
-  }
+  })();
 })();

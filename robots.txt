@@ -1,5 +1,12 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://victorburbano.com/sitemap.xml</content>
-<parameter name="filePath">c:\Users\USUARIO\Documents\Victor\documentos\Hv\HojaDeVidaVictorBurbano\robots.txt
+# Build scripts and internal notes are not content pages.
+Disallow: /scripts/
+Disallow: /README.md
+
+# Printable CV sources: the downloadable PDFs are the canonical documents.
+Disallow: /cv-en.html
+Disallow: /cv-es.html
+
+Sitemap: https://victorburbano.com/sitemap.xml
