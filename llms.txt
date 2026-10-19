@@ -14,6 +14,8 @@ Studio: https://codevam.dev/
 
 Full-Stack Developer and Multimedia Engineer with 5+ years of experience across logistics, energy, fintech, education and SaaS. Strong in Java 21 / Spring Boot, Angular / React, PHP / Yii2, Node.js, PostgreSQL / SQL Server and automated testing. Works end-to-end: requirements, data modeling, backend APIs, frontend interfaces, automated tests, containers and deployment.
 
+Language level: Spanish (native), English B1 (intermediate).
+
 ## Core skills
 
 - Backend: Java 21, Spring Boot, Spring Security, JPA/Hibernate, Node.js/Express, PHP/Yii2, Python/Django, NestJS.
